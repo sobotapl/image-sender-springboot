@@ -13,10 +13,22 @@ import java.util.Collections;
 
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    private UserDetailsServiceImpl userDetailsService;
+
+    public WebSecurityConfig(UserDetailsServiceImpl userDetailsService) {
+        this.userDetailsService = userDetailsService;
+    }
+
+    public WebSecurityConfig(boolean disableDefaults, UserDetailsServiceImpl userDetailsService) {
+        super(disableDefaults);
+        this.userDetailsService = userDetailsService;
+    }
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         //auth.inMemoryAuthentication().withUser(new User("Janek", passwordEncoder().encode("user"), Collections.singleton(new SimpleGrantedAuthority("user"))));
-        auth.userDetailsService()
+        auth.userDetailsService(userDetailsService);
     }
 
     @Override
