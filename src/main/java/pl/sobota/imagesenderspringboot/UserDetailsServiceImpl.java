@@ -12,13 +12,11 @@ import pl.sobota.imagesenderspringboot.repository.UserAppRepository;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-
     private UserAppRepository userAppRepository;
-    private PasswordEncoder passwordEncoder;
 
-    public UserDetailsServiceImpl(UserAppRepository userAppRepository, PasswordEncoder passwordEncoder) {
+
+    public UserDetailsServiceImpl(UserAppRepository userAppRepository) {
         this.userAppRepository = userAppRepository;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -26,10 +24,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return userAppRepository.findByUsername(username);
     }
 
-    @EventListener(ApplicationEvent.class)
-    public void create(){
-        UserApp userApp = new UserApp("Pio", passwordEncoder.encode("Nowak"), "User");
-        userAppRepository.save(userApp);
-    }
+
 
 }
