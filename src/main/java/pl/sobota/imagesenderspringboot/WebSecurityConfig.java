@@ -20,10 +20,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         this.userDetailsService = userDetailsService;
     }
 
-    public WebSecurityConfig(boolean disableDefaults, UserDetailsServiceImpl userDetailsService) {
-        super(disableDefaults);
-        this.userDetailsService = userDetailsService;
-    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -37,7 +33,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin().permitAll();
     }
-
 
     @Bean
     public PasswordEncoder passwordEncoder(){
