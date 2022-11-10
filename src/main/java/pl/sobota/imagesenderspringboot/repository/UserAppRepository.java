@@ -7,5 +7,7 @@ import pl.sobota.imagesenderspringboot.UserApp;
 public interface UserAppRepository extends JpaRepository<UserApp, Long> {
 
 
+    UserApp findByUsername(String username);
+
 
 }
