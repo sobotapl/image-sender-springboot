@@ -1,4 +1,4 @@
-package pl.sobota.imagesenderspringboot;
+package pl.sobota.imagesenderspringboot.model;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

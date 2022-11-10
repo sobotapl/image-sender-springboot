@@ -1,4 +1,4 @@
-package pl.sobota.imagesenderspringboot;
+package pl.sobota.imagesenderspringboot.config;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -6,13 +6,11 @@ import org.springframework.context.event.EventListener;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import pl.sobota.imagesenderspringboot.model.UserApp;
 import pl.sobota.imagesenderspringboot.repository.UserAppRepository;
-
-import java.util.Collections;
+import pl.sobota.imagesenderspringboot.service.UserDetailsServiceImpl;
 
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -34,7 +32,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/test1").authenticated()
+        http.authorizeRequests()
+                .antMatchers("/test1").hasRole("USER")
+                .antMatchers("/test2").hasRole("ADMIN")
                 .and()
                 .formLogin().permitAll();
     }
@@ -47,7 +47,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @EventListener(ApplicationEvent.class)
     public void create(){
-        UserApp userApp = new UserApp("Pio", passwordEncoder().encode("Nowak"), "User");
-        userAppRepository.save(userApp);
+        UserApp userAppAdmin = new UserApp("admin", passwordEncoder().encode("admin"), "ROLE_ADMIN");
+        UserApp userAppUser = new UserApp("user", passwordEncoder().encode("user"), "ROLE_USER");
+        userAppRepository.save(userAppAdmin);
+        userAppRepository.save(userAppUser);
     }
 }

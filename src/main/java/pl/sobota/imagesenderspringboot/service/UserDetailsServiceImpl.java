@@ -1,4 +1,4 @@
-package pl.sobota.imagesenderspringboot;
+package pl.sobota.imagesenderspringboot.service;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.event.EventListener;
