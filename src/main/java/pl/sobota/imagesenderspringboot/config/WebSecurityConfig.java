@@ -11,13 +11,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import pl.sobota.imagesenderspringboot.model.UserApp;
 import pl.sobota.imagesenderspringboot.repository.UserAppRepository;
-import pl.sobota.imagesenderspringboot.UserDetailsServiceImpl;
+import pl.sobota.imagesenderspringboot.service.UserDetailsServiceImpl;
 
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private UserDetailsServiceImpl userDetailsService;
-    private UserAppRepository userAppRepository;
+    private  UserDetailsServiceImpl userDetailsService;
+    private  UserAppRepository userAppRepository;
 
     @Autowired
     public WebSecurityConfig(UserDetailsServiceImpl userDetailsService, UserAppRepository userAppRepository) {
@@ -54,8 +54,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @EventListener(ApplicationEvent.class)
     public void create(){
-        UserApp userAppAdmin = new UserApp("piotr", passwordEncoder().encode("admin"), "ROLE_ADMIN");
-        UserApp userAppUser = new UserApp("marek", passwordEncoder().encode("user"), "ROLE_USER");
+        UserApp userAppAdmin = new UserApp("piotr", "admin", "ROLE_ADMIN");
+        UserApp userAppUser = new UserApp("marek", "user", "ROLE_USER");
         userAppRepository.save(userAppAdmin);
         userAppRepository.save(userAppUser);
     }

@@ -1,4 +1,5 @@
-package pl.sobota.imagesenderspringboot;
+package pl.sobota.imagesenderspringboot.service;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.event.EventListener;
@@ -14,7 +15,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     private UserAppRepository userAppRepository;
 
-
+    @Autowired
     public UserDetailsServiceImpl(UserAppRepository userAppRepository) {
         this.userAppRepository = userAppRepository;
     }
@@ -23,6 +24,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userAppRepository.findByUsername(username);
     }
+
+
 
 
 
